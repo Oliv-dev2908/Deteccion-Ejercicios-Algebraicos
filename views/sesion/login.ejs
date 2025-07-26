@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión</title>
+
+  <!-- Tailwind + DaisyUI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            colegio: '#0066cc',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.0/dist/full.css" rel="stylesheet" />
+</head>
+<body class="bg-blue-50 flex items-center justify-center min-h-screen">
+
+  <div class="w-full max-w-md p-8 space-y-6 bg-white shadow-xl rounded-xl border border-gray-200">
+    <h1 class="text-3xl font-bold text-center text-colegio">Iniciar Sesión</h1>
+
+    <form method="POST" action="/login" class="space-y-5">
+
+      <!-- Campo correo -->
+      <div>
+        <label class="label">
+          <span class="label-text font-semibold">Correo</span>
+        </label>
+        <div class="relative">
+          <input type="email" name="correo" required placeholder="ejemplo@colegio.edu.bo" class="input input-bordered w-full pl-10" />
+          <svg class="w-5 h-5 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 12H8m0 0l4-4m-4 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Campo contraseña -->
+      <div>
+        <label class="label">
+          <span class="label-text font-semibold">Contraseña</span>
+        </label>
+        <div class="relative">
+          <input id="password" type="password" name="contraseña" required placeholder="********" class="input input-bordered w-full pr-12" />
+          <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-2 flex items-center px-2 text-gray-500">
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón enviar -->
+      <button type="submit" class="btn btn-primary w-full bg-colegio hover:bg-blue-700 text-white">
+        Entrar
+      </button>
+
+    </form>
+
+    <% if (error) { %>
+      <div class="alert alert-error mt-4 text-sm">
+        <span><%= error %></span>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Script para mostrar/ocultar contraseña -->
+  <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      const icon = document.getElementById("eyeIcon");
+
+      if (input.type === "password") {
+        input.type = "text";
+        icon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.057 10.057 0 012.038-3.362M9.88 9.88a3 3 0 014.24 4.24m-4.24-4.24L3 3m0 0l18 18" />
+        `;
+      } else {
+        input.type = "password";
+        icon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
